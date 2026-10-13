@@ -52,12 +52,26 @@ Solución adoptada (decidida con el usuario): **espejo con GitHub Actions**.
 - `scripts/fetch-data.mjs`: compara `datos` remoto vs local; si cambió descarga
   las capas (User-Agent de browser, reintentos, 404 tolerado en opcionales).
   Escribe `estado.json` AL FINAL (es el marcador de commit). `--force` fuerza.
-- `.github/workflows/update-data.yml`: cron `*/5 * * * *` (best-effort, GitHub
+- `.github/workflows/update-data.yml`: cron `2-59/5 * * * *` (best-effort, GitHub
   puede atrasarlo; se desactiva tras 60 días sin actividad del repo → reactivar
   manualmente en Actions). Commit solo si hay cambios. **Costo $0 en repo público**.
+- `scripts/setup-scheduler.mjs`: instala/renueva una única tarea gratuita en
+  cron-job.org que dispara `workflow_dispatch` cada 5 minutos en `main`.
+  Activación externa requerida; ver `docs/actualizacion-gratuita.md`. Usa un PAT
+  fine-grained solo para este repo con Actions:write; nunca el token de `gh auth`.
+  El proveedor conserva ese PAT. La API key de administración puede revocarse
+  después del alta; el PAT debe renovarse antes de caducar. No imprimir ni
+  versionar `.env.local`, no usar prefijos `VITE_` para estos secretos.
+  El instalador comprueba que el repo sea público y el job de descarga solo
+  acepta `main` en repos públicos, con timeout de 10 min. Checkout explícito de
+  `main` evita que ejecuciones encoladas partan de snapshots ya superados.
 - `.github/workflows/deploy.yml`: build Vite → Pages en cada push a `main`.
   Los commits automáticos de datos SÍ deben disparar un rebuild completo porque GitHub
   Pages sirve un artefacto estático (`dist/`) que debe recompilarse para incluir el nuevo JSON.
+  Tras un deploy exitoso se elimina solo su artefacto temporal de Actions para
+  evitar acumulación con la frecuencia de 5 min. Fallidos/cancelados expiran en
+  1 día. Actions:write está limitado al job de deploy; no borrar el artefacto
+  antes de que `deploy-pages` confirme éxito ni tocar otros artefactos.
 
 ## Stack y estructura
 
@@ -167,6 +181,16 @@ genérica tipo "AI slop"** (fue rechazada explícitamente).
     sumar `CLIENTESTOTAL` por feature. El alcance debe combinar todas las
     geometrías del mismo nombre; KPIs, ranking y reportes suman afectados pero
     usan el máximo `CLIENTESTOTAL` una sola vez (`aggregateComunas()`).
+17. **Cron solicitado no equivale a ejecución real**: entre el 6 y el 13/10/2026
+    se observaron 35 runs de `update-data` con intervalos de 2 h 43 min a
+    9 h 26 min (mediana 5 h 44 min), aunque se solicitaban cada 5 min. Separar
+    atraso del disparador, descarga, deploy y navegador antes de optimizar.
+    Usar un programador externo con `workflow_dispatch`, sin bucles permanentes
+    en runners. HTTP exitoso del dispatch no confirma éxito de descarga/deploy.
+    La gratuidad depende de conservar el repo público y runners estándar.
+18. **El hook global bloquea cualquier `.env*` en commits**, incluso ejemplos
+    vacíos. Conservar la plantilla sin claves en `docs/scheduler-keys.example.txt`
+    y los secretos solo en `.env.local` ignorado. No desactivar ni saltar el hook.
 
 ## Comandos
 
@@ -175,6 +199,7 @@ npm install
 npm run fetch-data    # espejo a public/data/ (--force para forzar)
 npm run dev           # desarrollo (sirve public/ directo)
 npm test              # regresiones unitarias (Vitest)
+npm run setup-scheduler # alta/renovación externa con claves en .env.local
 npm run build         # producción a dist/ (incluye copia de public/data)
 npm run preview       # sirve dist/
 node scripts/smoke.mjs http://localhost:4173/   # E2E (requiere preview corriendo)

@@ -115,6 +115,13 @@ flowchart LR
 
 El navegador no consulta directamente a Enel porque el origen no entrega cabeceras CORS. GitHub Actions mantiene un espejo estático y solo confirma el nuevo estado después de descargar las capas. Cada cambio de datos reconstruye el artefacto completo de Pages.
 
+Para reducir los retrasos del cron de GitHub, el proyecto incluye un instalador
+de [programador externo gratuito](docs/actualizacion-gratuita.md) con cron-job.org
+que activa este mismo flujo cada 5 minutos. Requiere configurar una cuenta y un
+token fine-grained limitado a Actions de este repositorio; el instalador evita
+tareas duplicadas y mantiene el cron de GitHub como respaldo. Hasta completar
+esa activación, solo funciona el cron de respaldo.
+
 ### Arquitectura dentro del navegador
 
 ```mermaid
@@ -217,6 +224,10 @@ node scripts/readme-shots.mjs http://localhost:4173/
 
 > [!NOTE]
 > GitHub puede desactivar workflows programados después de 60 días sin actividad. Se reactivan desde la pestaña **Actions**.
+
+Para activar o renovar el programador externo, sigue
+[Actualización gratuita del espejo](docs/actualizacion-gratuita.md) y ejecuta
+`npm run setup-scheduler` con las claves en `.env.local` (ignorado por Git).
 
 ---
 

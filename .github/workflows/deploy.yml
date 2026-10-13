@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_artifact_id: ${{ steps.artifact.outputs.artifact_id }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,15 +34,28 @@ jobs:
       - run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
+        id: artifact
         with:
           path: dist
+          retention-days: 1
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      # Pages ya tiene su copia; no acumular artefactos con 288 disparos diarios.
+      - name: Eliminar artefacto temporal tras publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT_ID: ${{ needs.build.outputs.pages_artifact_id }}
+        run: gh api --method DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$PAGES_ARTIFACT_ID"

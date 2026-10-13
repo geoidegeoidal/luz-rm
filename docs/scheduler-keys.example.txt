@@ -1,0 +1,4 @@
+# Copiar a .env.local (ignorado por Git). No compartir claves en el chat.
+CRON_JOB_API_KEY=
+# Fine-grained PAT: solo geoidegeoidal/luz-rm, Actions: Read and write.
+GITHUB_DISPATCH_TOKEN=

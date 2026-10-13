@@ -1,5 +1,45 @@
 # HANDOFF.md — Última sesión / handoff entre sesiones
 
+## 2026-10-13 — Actualización más frecuente sin servicios de pago
+
+**Objetivo**: reducir el atraso de Enel -> espejo -> Pages con una opción
+gratuita y permisos limitados.
+
+**Completado**: diagnóstico de Actions (35 runs desde el 6/10, intervalos de
+2 h 43 min a 9 h 26 min; mediana 5 h 44 min), instalador idempotente de
+cron-job.org por HTTPS cada 5 min, plantilla de variables locales, guía de
+activación/rotación/verificación y 7 pruebas del instalador. Workflow limitado
+a `main` público, checkout actual de `main`, timeout 10 min, cron de respaldo
+fuera del minuto cero. Deploy elimina solo su artefacto tras éxito (20 MB por
+ejecución observados), con Actions:write limitado a ese job y retención de 1 día
+para artefactos fallidos/cancelados. No se alteró la interfaz ni el modelo.
+
+**Decisiones**: conservar el espejo y rebuild de Pages; no usar proxies CORS
+públicos ni un runner con bucle permanente. Fine-grained PAT exclusivamente de
+luz-rm con Actions:write, caducidad y custodia en cron-job.org; nunca reutilizar
+el token de `gh auth`. API key administrativa opcional: la consola permite
+configurarlo sin ella. El repo debe seguir público con runners estándar.
+
+**Validación**: 17/17 Vitest + 7/7 Node, TypeScript sin errores, build Vite,
+YAML/permisos/conexión del artefacto y ausencia de variables/secretos del
+programador en `dist`. Vitest/build requieren ejecución fuera del sandbox de
+Windows por EPERM de `realpath`; no fue un fallo de código.
+
+**Estado externo/bloqueantes**: el usuario creó cron-job.org y está autenticado.
+En la pestaña existente se preparó Crear cronjob, URL fija de workflow_dispatch,
+horario de 5 min, POST, JSON ref main, timeout y cabeceras sin token. Todavía no
+se guardó ni activó. GitHub pidió Confirm access (MFA) antes del formulario de
+PAT; el usuario debe completar esa verificación. `.env.local` solo tiene campos
+vacíos e ignorados por Git. No imprimir token al leer árboles AX/capturas.
+
+**Siguiente**: completar MFA y crear PAT restringido, asignarlo a Authorization
+en cron-job.org fuera del chat, prueba real + verificación de Actions/Pages,
+guardar tarea, medir próximos disparos. Actualizar este estado tras activación.
+Código preparado en `codex/faster-data-updates`; registrar commit/publicación
+cuando se realicen. No se ha probado aún el programador contra las cuentas reales.
+
+---
+
 > **Convención**: este archivo es el puente entre sesiones de opencode.
 > Al final de cada sesión de trabajo, el agente (o el usuario a mano) actualiza
 > las secciones abajo. Al iniciar la próxima sesión, opencode lee este archivo
