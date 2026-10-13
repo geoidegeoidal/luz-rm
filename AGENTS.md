@@ -14,7 +14,7 @@
 publicados por Enel Chile).
 Visor de "control de mando" 100% client-side, open source (MIT), deployado en
 GitHub Pages. Proyecto **independiente**, sin afiliación con Enel. La palabra
-“Enel” se usa únicamente para identificar la fuente de datos.
+“Enel” identifica la fuente de datos y el destino oficial de avisos preparados.
 
 - Repo: `luz-rm` (público)
 - Producción: GitHub Pages (deploy vía GitHub Actions)

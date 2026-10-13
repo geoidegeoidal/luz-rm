@@ -28,8 +28,15 @@ selección/cancelación y foco. Vistas 320/390 y escritorio inspeccionadas.
 
 **Bloqueantes**: ninguno para el flujo de preparación. No se verificó el
 registro de un caso real con el bot de Enel; solo Enel puede confirmarlo.
-**Próximo**: publicar y comprobar que el botón/modal lleguen a Pages. Base de
-trabajo `33282ae`; rama `codex/georeferenced-fault-notice`.
+**Publicación**: commit `aa0ac5c` en `main`; deploy exitoso del run de actualización
+`38474821695` (el deploy directo `38474766567` fue reemplazado por concurrencia).
+Botón y diálogo verificados en producción `https://julloa.space/luz-rm/`, destino
+confirmado por la API de Pages y autorizado por el usuario para la revisión.
+Captura `output/fault-notice-production.png`; no se abrió WhatsApp ni se envió
+ningún aviso real.
+**Próximo**: sin pendientes de implementación; la recepción de avisos reales
+debe confirmarla Enel. Base de trabajo `33282ae`; rama
+`codex/georeferenced-fault-notice`.
 
 ---
 
