@@ -46,7 +46,7 @@ import {
   renderOperationalIndicators,
   updateAllCharts,
 } from './charts/charts'
-import { attachSearch, SearchPick } from './geo/search'
+import { attachSearch, SearchPick, isInsideRm } from './geo/search'
 import {
   computeVisible,
   analyzePoint,
@@ -70,6 +70,7 @@ import {
   type LegendMode,
 } from './ui/ui'
 import { openOperationalReport } from './report/report'
+import { createFaultNotice } from './report/faultNotice'
 
 applyTheme()
 
@@ -141,9 +142,22 @@ function renderNearest(r: NonNullable<ReturnType<typeof nearestIncidencia>>): vo
 /* ------------------------------------------------------------------ */
 /* Estado global de la vista                                             */
 /* ------------------------------------------------------------------ */
-type Tool = 'radio' | 'nearest' | null
+type Tool = 'radio' | 'nearest' | 'fault' | null
 let armedTool: Tool = null
 let lastSearchPoint: Feature<Point> | null = null
+const faultNotice = createFaultNotice(() => {
+  disarm()
+  armedTool = 'fault'
+  if (map) map.getCanvas().style.cursor = 'crosshair'
+  showHint('Elige en el mapa el lugar de la falla. Al cancelar volverás a tu borrador.', () => {
+    disarm()
+    faultNotice.open()
+  })
+})
+$('fault-report-open').addEventListener('click', () => {
+  disarm()
+  faultNotice.open()
+})
 let drawSession: DrawSession | null = null
 let map: ReturnType<typeof createMap> | null = null
 let hexOn = false
@@ -280,6 +294,14 @@ function onMapClickForTools(e: maplibregl.MapMouseEvent): void {
   }
   if (armedTool === 'radio') runRadio(pt)
   else if (armedTool === 'nearest') runNearest(pt)
+  else if (armedTool === 'fault') {
+    const coordinates = pt.geometry.coordinates as [number, number]
+    if (!isInsideRm(coordinates)) return toast('Elige un punto dentro del área RM del visor')
+    disarm()
+    applyOverlay([{ ...pt, properties: { color: layerColors.searchMarker } }])
+    faultNotice.setLocation({ coordinates })
+    faultNotice.open()
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -536,6 +558,7 @@ async function boot(): Promise<void> {
   /* Buscador */
   attachSearch($('search-input') as HTMLInputElement, $('search-results'), (pick: SearchPick) => {
     lastSearchPoint = pick.point
+    faultNotice.setLocation({ coordinates: pick.point.geometry.coordinates as [number, number], address: [pick.label, pick.sub].filter(Boolean).join(', ') })
     const dataNow = store.state.data
     if (!dataNow || !map) return
     applyOverlay([{ ...pick.point, properties: { color: layerColors.searchMarker } }])

@@ -1,5 +1,38 @@
 # HANDOFF.md — Última sesión / handoff entre sesiones
 
+## 2026-10-13 — Aviso ciudadano georreferenciado a Enel
+
+**Objetivo**: facilitar desde LUZ·RM avisos de fallas con ubicación, dejando
+claro que el proyecto es independiente y el registro se completa con Enel.
+
+**Hecho**: botón AVISAR FALLA A ENEL en ANÁLISIS y diálogo con dirección buscada,
+punto del mapa o coordenadas WGS84, tipo de falla y descripción. Vista previa
+local y consentimiento para WhatsApp/Meta al abrir el canal y Enel al enviar.
+WhatsApp oficial +56 9 9444 7606 verificado en la página de emergencias de Enel;
+mensaje con coordenadas y enlace Google Maps. Copia alternativa con recuperación
+de errores; cerrar o cancelar selección conserva el borrador, pero reabrir exige
+consentimiento nuevo. Sin backend, GPS automático ni datos de cliente; borrador
+solo en memoria/DOM. No se declara enviado/recibido ni se inventan números de caso.
+README, NOTICE, sistema visual y AGENTS actualizados con el flujo y proveedores.
+
+**Decisiones**: enlace al canal oficial, sin automatizar el bot ni simular una
+integración de recepción. El usuario envía el mensaje y sigue las indicaciones
+de Enel. Mantener el diálogo accesible, con foco atrapado y retorno al origen.
+
+**Verificación**: 25/25 Vitest + 7/7 Node, TypeScript y build. Smoke Chrome con
+mapa, búsqueda, radio, nearest, hexbin y PDF preservados; aviso con prefilling,
+texto hostil sin ejecutar HTML, coordenadas fuera de RM, recuperación del
+portapapeles, consentimiento invalidado al cambiar datos/reabrir, borrador,
+selección/cancelación y foco. Vistas 320/390 y escritorio inspeccionadas.
+`window.open` interceptado en E2E: no se enviaron avisos de prueba a Enel.
+
+**Bloqueantes**: ninguno para el flujo de preparación. No se verificó el
+registro de un caso real con el bot de Enel; solo Enel puede confirmarlo.
+**Próximo**: publicar y comprobar que el botón/modal lleguen a Pages. Base de
+trabajo `33282ae`; rama `codex/georeferenced-fault-notice`.
+
+---
+
 ## 2026-10-13 — Activación del programador externo
 
 **Objetivo**: completar la actualización gratuita cada 5 min en producción.

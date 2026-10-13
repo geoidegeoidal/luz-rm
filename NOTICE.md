@@ -1,6 +1,6 @@
 # LUZ·RM — Avisos de derechos, fuentes y atribuciones
 
-Última revisión: 26 de julio de 2026.
+Última revisión: 13 de octubre de 2026.
 
 Este documento separa los componentes propios de LUZ·RM de los datos,
 servicios, marcas, mapas, tipografías y bibliotecas pertenecientes a terceros.
@@ -26,7 +26,8 @@ materiales de terceros.
 
 “Enel” y cualquier otra denominación, marca, logotipo o identidad de Enel
 pertenecen a sus respectivos titulares. Su mención en este proyecto se limita a
-identificar la procedencia de datos operativos. Este proyecto no está
+identificar la procedencia de datos operativos y el destinatario de los avisos
+ciudadanos que la persona usuaria decide compartir por canales oficiales. Este proyecto no está
 patrocinado, aprobado, operado ni afiliado con Enel.
 
 No se distribuyen logotipos oficiales de Enel como parte de la identidad de
@@ -67,6 +68,27 @@ términos aplicables de la fuente.
   <https://operations.osmfoundation.org/policies/nominatim/>
 
 Las atribuciones visibles dentro del mapa y del reporte deben conservarse.
+
+### Preparación de avisos de falla
+
+El formulario de LUZ·RM prepara un borrador local con ubicación WGS84 y
+descripción. No lo guarda en un servidor ni en almacenamiento persistente del
+navegador. El borrador puede mantenerse en memoria mientras la página siga
+abierta, para recuperarlo al cerrar el diálogo o cancelar la selección del punto.
+
+Solo al aceptar compartir y abrir el canal se transmite el texto preparado a
+**WhatsApp/Meta**, destinado al número oficial de **Enel Distribución Chile**.
+Sus servicios tienen sus propias condiciones. Enviar el mensaje y completar el
+registro se hace fuera de LUZ·RM; esta aplicación no puede confirmar recepción
+ni asigna un número de caso. El mensaje incluye un enlace con las coordenadas a
+**Google Maps**, sujeto a las condiciones de ese servicio.
+
+- Canal verificado el 13/10/2026 en
+  [la página de emergencias de Enel](https://www.enel.cl/es/clientes/emergencias/mapa-en-linea-cortes.html).
+- WhatsApp: [función de mensaje preparado](https://faq.whatsapp.com/5913398998672934).
+
+La búsqueda de direcciones conserva los proveedores geográficos declarados
+arriba. No se solicita geolocalización del dispositivo de forma automática.
 
 ## 5. Tipografías y bibliotecas
 

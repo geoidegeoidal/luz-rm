@@ -82,6 +82,20 @@ El reporte reutiliza el alcance activo y genera dos páginas A4 apaisadas sin en
 - **Página 2:** reloj ±12 h, escala ETA, eventos prioritarios, impacto comunal y metodología.
 - **Exportación:** `IMPRIMIR / GUARDAR PDF` utiliza el diálogo nativo del navegador.
 
+### Aviso ciudadano georreferenciado a Enel
+
+**AVISAR FALLA A ENEL**, en el panel de análisis, prepara un mensaje con el punto
+seleccionado en el mapa o la dirección buscada, coordenadas WGS84, referencia,
+tipo de falla y descripción de la persona usuaria. El borrador se revisa antes
+de abrir el [WhatsApp que Enel publica como canal oficial](https://www.enel.cl/es/clientes/emergencias/mapa-en-linea-cortes.html).
+
+LUZ·RM es independiente y solo facilita la preparación. Abrir WhatsApp no
+equivale a enviar ni registrar la falla: hay que enviar el mensaje, continuar
+con Enel y esperar su confirmación. La ubicación y descripción se comparten con
+WhatsApp/Meta y Enel solo tras el consentimiento de la persona usuaria; el
+borrador no se guarda en servidores ni en almacenamiento persistente local.
+Los datos de cliente se entregan directamente al canal oficial si los solicita.
+
 ---
 
 ## 03 · Arquitectura

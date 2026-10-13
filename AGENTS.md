@@ -120,6 +120,18 @@ Vite 6 + TypeScript vanilla (sin framework). Sin backend propio.
   RM/comuna. Genera mapa SVG operacional con severidad, incidencias activas y
   avisos, dos páginas A4 apaisadas y vista previa; el botón de impresión permite
   guardar PDF sin enviar datos fuera del navegador.
+- `src/report/faultNotice.ts`: borrador ciudadano georreferenciado a Enel.
+  Entrada en ANÁLISIS; usa dirección buscada, punto del mapa o coordenadas.
+  Preview local, consentimiento explícito para WhatsApp/Meta y Enel, salida al
+  número oficial +56 9 9444 7606 verificado el 13/10/2026. Nunca presentar abrir
+  WhatsApp como envío/registro confirmado ni asignar casos ficticios. Sin API
+  de recepción, backend, GPS automático, RUT o número de cliente; no persistir
+  borradores. Los datos de cliente se completan directamente con Enel.
+  Guardar texto mediante value/textContent, no interpolar entradas en HTML.
+  Una selección nueva invalida preview y consentimiento; reabrir conserva el
+  borrador pero exige consentimiento nuevo. Cancelar selección devuelve al
+  diálogo. Usar trap de Tab como el reporte PDF, además del diálogo nativo.
+  En tests interceptar window.open: nunca enviar avisos de prueba a Enel.
 - `.interface-design/system.md`: sistema visual persistente (tokens, retícula,
   patrones de dashboard y reporte). Leerlo antes de diseñar componentes nuevos.
 - `scripts/smoke.mjs`, `scripts/shots*.mjs`: tests E2E con puppeteer-core +

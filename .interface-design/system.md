@@ -143,6 +143,13 @@ se separan por papel/panel y lineas.
 
 ### Identidad y procedencia
 
+- El aviso ciudadano usa diálogo con la misma retícula plana, tres grupos
+  (ubicación, descripción, revisión), blancos de toque de 44 px y coordenadas
+  apiladas en móvil. Identidad independiente visible antes de los campos;
+  destinatario y consecuencia del CTA visibles junto al consentimiento.
+  La acción se llama `ABRIR WHATSAPP DE ENEL`; no mostrar éxito de envío o
+  registro sin una confirmación real del proveedor. Borrador local recuperable.
+
 - Marca publica: `LUZ·RM`. No usar nombres de proveedores de datos dentro del
   lockup, titulo del producto, metadatos sociales ni encabezado del reporte.
 - `Enel Chile` aparece solo como procedencia del snapshot y nunca como aval,
