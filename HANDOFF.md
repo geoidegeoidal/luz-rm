@@ -1,5 +1,35 @@
 # HANDOFF.md — Última sesión / handoff entre sesiones
 
+## 2026-10-13 — Activación del programador externo
+
+**Objetivo**: completar la actualización gratuita cada 5 min en producción.
+
+**Hecho**: el usuario completó MFA de GitHub y autorizó generar el PAT y
+guardarlo en cron-job.org. Token `luz-rm-scheduler`, solo `geoidegeoidal/luz-rm`,
+Actions:read/write y Metadata:read, vencimiento **11/01/2027**. Tarea **8640374**
+guardada y habilitada en la cuenta del usuario; minutos 1,6,11,...56, todos los
+días (America/Santiago), POST HTTPS con ref main, timeout 20 s, sin guardar
+respuestas, avisos tras 3 fallos y por deshabilitación. No se creó API key
+administrativa. El token solo se transfirió por la UI autorizada y se retiró de
+las variables de trabajo; no se guardó en archivos, commits ni chat.
+
+**Verificación**: prueba desde cron-job.org `204 No Content` en 1,5 s; GitHub run
+`38472226308` completó fetch, build y deploy con éxito. Primera ejecución
+programada ejecutada a las **18:41:02** (programada 18:41:00; variación 2,44 s,
+HTTP 204 en 2,88 s); run GitHub `38472433462` completado con éxito. Historial:
+`https://console.cron-job.org/jobs/8640374/history`. Próximas ejecuciones a las
+18:46, 18:51 y 18:56. La prueba externa no dejó artefactos (`total_count: 0`).
+
+**Decisiones**: renovar el PAT antes del 11/01/2027 y actualizar Authorization
+en la misma tarea; no generar tareas duplicadas ni usar credenciales más amplias.
+No hay cuota de un backend de pago ni runner permanente.
+
+**Bloqueantes**: ninguno; programador activo y primera ejecución real verificada.
+**Próximo**: renovar el PAT antes del 11/01/2027. No se creó recordatorio futuro.
+Implementación publicada: `8a0616e`; snapshot de prueba previo: `bdf71e5`.
+
+---
+
 ## 2026-10-13 — Actualización más frecuente sin servicios de pago
 
 **Objetivo**: reducir el atraso de Enel -> espejo -> Pages con una opción
@@ -25,18 +55,24 @@ YAML/permisos/conexión del artefacto y ausencia de variables/secretos del
 programador en `dist`. Vitest/build requieren ejecución fuera del sandbox de
 Windows por EPERM de `realpath`; no fue un fallo de código.
 
-**Estado externo/bloqueantes**: el usuario creó cron-job.org y está autenticado.
+**Estado al cerrar la implementación (resuelto en la entrada de activación)**:
+el usuario creó cron-job.org y está autenticado.
 En la pestaña existente se preparó Crear cronjob, URL fija de workflow_dispatch,
 horario de 5 min, POST, JSON ref main, timeout y cabeceras sin token. Todavía no
 se guardó ni activó. GitHub pidió Confirm access (MFA) antes del formulario de
 PAT; el usuario debe completar esa verificación. `.env.local` solo tiene campos
 vacíos e ignorados por Git. No imprimir token al leer árboles AX/capturas.
 
-**Siguiente**: completar MFA y crear PAT restringido, asignarlo a Authorization
+**Siguiente previsto entonces (ya completado arriba)**: completar MFA y crear PAT restringido, asignarlo a Authorization
 en cron-job.org fuera del chat, prueba real + verificación de Actions/Pages,
 guardar tarea, medir próximos disparos. Actualizar este estado tras activación.
-Código preparado en `codex/faster-data-updates`; registrar commit/publicación
-cuando se realicen. No se ha probado aún el programador contra las cuentas reales.
+**Commit publicado**: `8a0616e` en `main` (implementación + documentación).
+Checkout de trabajo en `codex/faster-data-updates`. Deploy `38470721319` exitoso:
+build + Pages confirmados y API de artefactos del run devuelve `total_count: 0`.
+Prueba manual `update-data` en main (`38470934321`) exitosa: descarga 14 s,
+build 26 s y deploy 11 s; artefactos del run `total_count: 0`. El snapshot
+confirmado pasó a `13/10 18:26`, descargado a las 18:29 de Chile.
+La tarea externa todavía espera MFA/PAT y no está guardada/activa.
 
 ---
 

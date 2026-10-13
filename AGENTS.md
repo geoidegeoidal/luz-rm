@@ -65,6 +65,12 @@ Solución adoptada (decidida con el usuario): **espejo con GitHub Actions**.
   El instalador comprueba que el repo sea público y el job de descarga solo
   acepta `main` en repos públicos, con timeout de 10 min. Checkout explícito de
   `main` evita que ejecuciones encoladas partan de snapshots ya superados.
+  La instalación principal quedó activa el 13/10/2026 desde la consola, sin API
+  key administrativa; ID de tarea y vencimiento del PAT en `HANDOFF.md` y la guía.
+  En la UI de cron-job.org, Crontab es una vista; configurar los minutos con
+  Personalizado -> Minutos y verificar las próximas ejecuciones, no editar el
+  texto de esa vista. Al observar pantallas de tokens/Authorization, omitir
+  credenciales de las salidas AX y capturas, y cerrar la vista tras transferirlas.
 - `.github/workflows/deploy.yml`: build Vite → Pages en cada push a `main`.
   Los commits automáticos de datos SÍ deben disparar un rebuild completo porque GitHub
   Pages sirve un artefacto estático (`dist/`) que debe recompilarse para incluir el nuevo JSON.

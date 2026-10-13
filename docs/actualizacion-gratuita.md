@@ -1,5 +1,14 @@
 # Actualizacion gratuita del espejo
 
+**Instalacion principal**: tarea `8640374` habilitada el 13/10/2026 en cron-job.org,
+con prueba de dispatch + descarga + deploy exitosa. El PAT `luz-rm-scheduler`
+vence el **11/01/2027**: renovarlo antes de esa fecha y actualizar la cabecera
+Authorization de la misma tarea. La configuracion se hizo desde la consola,
+sin crear una API key de administracion ni guardar claves en el proyecto.
+La primera ejecucion programada ocurrio a las **18:41:02 de Chile**, 2,44 s
+despues del horario previsto, y completo el workflow GitHub `38472433462` con
+exito. Las siguientes quedaron programadas a intervalos de 5 minutos.
+
 El 13/10/2026 se observaron 35 ejecuciones de `update-data.yml` desde el 6 de
 octubre, con intervalos entre 2 h 43 min y 9 h 26 min (mediana: 5 h 44 min),
 aunque el cron solicitaba cada 5 minutos. La ultima descarga duro 3 segundos y
@@ -94,6 +103,11 @@ el PAT de GitHub del paso 2 anterior; no hace falta una API key de cron-job.org.
 Hacer una ejecucion de prueba, comprobar el workflow en GitHub y guardar la
 tarea habilitada. Si mas adelante se usa el instalador, encontrara esta misma
 tarea por su URL y la actualizara sin duplicarla.
+
+En la consola, la expresion Crontab es una vista del horario, no el editor que
+configura los minutos. Elegir **Personalizado** y seleccionar en **Minutos**
+1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51 y 56; dejar todos los dias, meses y
+horas seleccionados. Verificar las proximas ejecuciones antes de guardar.
 
 ## Verificacion en produccion
 

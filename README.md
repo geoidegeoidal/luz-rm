@@ -119,8 +119,8 @@ Para reducir los retrasos del cron de GitHub, el proyecto incluye un instalador
 de [programador externo gratuito](docs/actualizacion-gratuita.md) con cron-job.org
 que activa este mismo flujo cada 5 minutos. Requiere configurar una cuenta y un
 token fine-grained limitado a Actions de este repositorio; el instalador evita
-tareas duplicadas y mantiene el cron de GitHub como respaldo. Hasta completar
-esa activación, solo funciona el cron de respaldo.
+tareas duplicadas y mantiene el cron de GitHub como respaldo. La instalación
+principal se activó el 13/10/2026; los forks deben completar su propia activación.
 
 ### Arquitectura dentro del navegador
 
