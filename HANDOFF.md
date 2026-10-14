@@ -1,3 +1,14 @@
+## 2026-10-13 — Difusión de LUZ·RM y portafolio
+
+**Objetivo:** dos vistas para LinkedIn y actualización del portafolio con un artículo de beneficios, abordaje y tecnologías.
+**Hecho:** piezas JPG 1080×1350 en output/linkedin/01-luz-rm.jpg y 02-portafolio.jpg, fuente HTML con fuentes/capturas locales y texto-linkedin.txt con copy y alternativas. No se publicó en LinkedIn. Portafolio identificado por Pages como geoidegeoidal/geoidegeoidal.github.io (julloa.space); checkout aislado en tmp/portfolio, rama codex/luz-rm-project-story.
+**Decisiones:** piezas con capturas reales fechadas, sin métricas de impacto inventadas ni promesa de tiempo real. Ficha común de LUZ·RM actualizada y caso editorial en /bitacora/luz-rm-cortes-energia-territorio/; conservar layouts/identidad existentes y enlaces oficiales.
+**Verificación:** Jekyll/check_site 11 páginas, SEO, 7 rutas×4 anchos sin errores/axe; diez fichas de terminal y 200% pasan. Artículo escritorio/móvil y piezas 1080×1350 inspeccionadas; no formularios ni avisos reales.
+**Publicación:** portafolio `dafc3f1` en main; Pages `38488765532` success. Artículo y ficha de Código comprobados en julloa.space, incluido el enlace al artículo. Paquete output/linkedin-luz-rm-portafolio.zip con dos JPG, copy/alt y fuente HTML/capturas/fuente/licencia.
+**Bloqueantes:** ninguno. Próximo: publicación de LinkedIn por el propietario; ningún envío realizado. Los commits del portafolio están en su repositorio separado. No se probó hardware móvil ni lector de pantalla real.
+
+---
+
 # HANDOFF.md — Última sesión / handoff entre sesiones
 
 ## 2026-10-13 — Aviso ciudadano georreferenciado a Enel

@@ -18,6 +18,11 @@ GitHub Pages. Proyecto **independiente**, sin afiliación con Enel. La palabra
 
 - Repo: `luz-rm` (público)
 - Producción: GitHub Pages (deploy vía GitHub Actions)
+- Portafolio del autor: `geoidegeoidal/geoidegeoidal.github.io`, publicado en
+  `https://julloa.space/`; caso técnico en
+  `/bitacora/luz-rm-cortes-energia-territorio/`. La ficha compartida vive en
+  `_data/projects.json` de ese repositorio, no en este visor. Materiales de
+  LinkedIn usan capturas fechadas y no prometen datos nuevos cada cinco minutos.
 - Usuario GitHub: `geoidegeoidal`
 
 ## Fuente de datos (hallazgo clave de la investigación)
