@@ -83,6 +83,13 @@ Solución adoptada (decidida con el usuario): **espejo con GitHub Actions**.
   evitar acumulación con la frecuencia de 5 min. Fallidos/cancelados expiran en
   1 día. Actions:write está limitado al job de deploy; no borrar el artefacto
   antes de que `deploy-pages` confirme éxito ni tocar otros artefactos.
+  La publicacion no cancela otra ejecucion activa del grupo `pages`. Usa hasta
+  20 minutos por intento, espera 2 minutos tras un fallo y hace un unico
+  reintento obligatorio (limite total del job: 45 min). Un segundo fallo deja
+  el workflow en rojo; solo el primer intento tiene `continue-on-error`.
+  Conservar la URL del intento exitoso y limpiar su artefacto unicamente tras
+  exito. Esto tolera demoras, no garantiza recuperar una caida de Pages. Una
+  espera prolongada puede retrasar datos publicados aunque el cron siga igual.
 
 ## Stack y estructura
 
@@ -214,6 +221,13 @@ genérica tipo "AI slop"** (fue rechazada explícitamente).
 18. **El hook global bloquea cualquier `.env*` en commits**, incluso ejemplos
     vacíos. Conservar la plantilla sin claves en `docs/scheduler-keys.example.txt`
     y los secretos solo en `.env.local` ignorado. No desactivar ni saltar el hook.
+
+19. **Un timeout de Pages no confirma liberacion inmediata en su servidor**:
+    el 20/10/2026 hubo cinco fallos de publicacion con descarga y build correctos.
+    El primero agoto 10 min en `updating_pages`; despues Pages rechazo intentos
+    porque seguia considerando activo el despliegue anterior. Validar siempre
+    el resultado final del reintento y no convertir un fallo persistente en
+    exito ni borrar su artefacto. Regresiones: `scripts/deploy-workflow.check.mjs`.
 
 ## Comandos
 

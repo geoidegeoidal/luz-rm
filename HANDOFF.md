@@ -1,3 +1,13 @@
+## 2026-10-20 — Publicacion resiliente de GitHub Pages
+
+**Objetivo:** reducir fallos en cadena de `update-data` causados por una publicacion de Pages todavia activa. Usuario autorizo publicar en main usando la conexion GitHub de la sesion.
+**Hecho:** grupo `pages` sin cancelacion activa, timeout de 20 min por intento, espera de 120 s y un unico reintento obligatorio; limite del job 45 min, URL del intento exitoso y limpieza solo tras exito. Cinco regresiones incluidas en `npm test`.
+**Verificacion previa:** RED 4 fallos nuevos + 1 invariante correcta, GREEN 5/5; suite 25 Vitest + 12 Node aprobada. Verificador independiente comprobo cinco escenarios. Revision nativa de riesgo, resiliencia y fiabilidad aprobada y confirmada, sin bloqueantes.
+**Decisiones:** conservar cron, permisos, credenciales, notificaciones y datos; usar la accion oficial. Un segundo fallo deja el workflow en rojo. Revertir este ajuste no requiere modificar snapshots ni el descargador.
+**Estado y proximo paso:** verificar una ejecucion real de Actions tras publicar y la fecha de datos servida por el sitio; el resultado se registra en el cierre local de sesion. No se simulo una caida real de Pages. La tolerancia a demoras no garantiza recuperacion de una caida del proveedor. Cambios de codigo y tests en el commit asociado a esta entrada.
+
+---
+
 ## 2026-10-13 — Difusión de LUZ·RM y portafolio
 
 **Objetivo:** dos vistas para LinkedIn y actualización del portafolio con un artículo de beneficios, abordaje y tecnologías.
