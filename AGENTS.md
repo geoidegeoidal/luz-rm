@@ -84,7 +84,7 @@ Solución adoptada (decidida con el usuario): **espejo con GitHub Actions**.
   1 día. Actions:write está limitado al job de deploy; no borrar el artefacto
   antes de que `deploy-pages` confirme éxito ni tocar otros artefactos.
   La publicacion no cancela otra ejecucion activa del grupo `pages`. Usa hasta
-  20 minutos por intento, espera 2 minutos tras un fallo y hace un unico
+  el límite predeterminado de 10 minutos por intento, espera 2 minutos tras un fallo y hace un único
   reintento obligatorio (limite total del job: 45 min). Un segundo fallo deja
   el workflow en rojo; solo el primer intento tiene `continue-on-error`.
   Conservar la URL del intento exitoso y limpiar su artefacto unicamente tras
@@ -227,7 +227,11 @@ genérica tipo "AI slop"** (fue rechazada explícitamente).
     El primero agoto 10 min en `updating_pages`; despues Pages rechazo intentos
     porque seguia considerando activo el despliegue anterior. Validar siempre
     el resultado final del reintento y no convertir un fallo persistente en
-    exito ni borrar su artefacto. Regresiones: `scripts/deploy-workflow.check.mjs`.
+    exito ni borrar su artefacto. `actions/deploy-pages@v4` limita `timeout` a
+    600000 ms: subirlo a 20 min no cambia la espera real y emite una advertencia.
+    Ante HTTP 500 o timeouts repetidos, verificar el paso fallido y el marcador
+    público antes de atribuir el fallo al espejo o cambiar los reintentos.
+    Regresiones: `scripts/deploy-workflow.check.mjs`.
 
 ## Comandos
 

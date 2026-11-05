@@ -23,7 +23,7 @@ test('la publicacion tiene dos intentos oficiales y solo el primero tolera error
   assert.equal((deploy.match(/uses: actions\/deploy-pages@v4/g) ?? []).length, 2)
   for (const attempt of [first, retry]) {
     assert.match(attempt, /uses: actions\/deploy-pages@v4/)
-    assert.match(attempt, /timeout: 1200000/)
+    assert.doesNotMatch(attempt, /^\s+timeout:/m, 'Debe usar el máximo predeterminado de Pages (10 min)')
   }
   assert.match(first, /continue-on-error: true/)
   assert.match(retry, /if: \$\{\{ steps\.deployment\.outcome == 'failure' \}\}/)

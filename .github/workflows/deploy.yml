@@ -54,9 +54,8 @@ jobs:
     steps:
       - id: deployment
         continue-on-error: true
+        # Pages limits each attempt to the default 10 minutes.
         uses: actions/deploy-pages@v4
-        with:
-          timeout: 1200000
 
       # Pages puede seguir ocupado tras el timeout de una publicacion anterior.
       - name: Esperar antes de reintentar Pages
@@ -66,8 +65,6 @@ jobs:
       - id: deployment_retry
         if: ${{ steps.deployment.outcome == 'failure' }}
         uses: actions/deploy-pages@v4
-        with:
-          timeout: 1200000
 
       # Pages ya tiene su copia; no acumular artefactos con 288 disparos diarios.
       - name: Eliminar artefacto temporal tras publicar
